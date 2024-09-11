@@ -9,25 +9,11 @@ import { Product } from "./types";
 
 function App() {
   
-  const API_KEY = process.env.REACT_APP_PRINTIFY_API_KEY;
-  const SHOP_ID = process.env.REACT_APP_SHOP_ID;
+  const API_KEY = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIzN2Q0YmQzMDM1ZmUxMWU5YTgwM2FiN2VlYjNjY2M5NyIsImp0aSI6Ijc0NzYzYzFjZWM2YWJiZmM4YmIzYTc0ZmM1Y2I3NDk1MjkxOTFkNTk3ZGFlNDI5ZWNhNDI2NGVmODEwYjc5ZmFmN2UyMThlMGJiZmEwZjhjIiwiaWF0IjoxNzI2MDEwNzI2LjE1MzAxNSwibmJmIjoxNzI2MDEwNzI2LjE1MzAxNywiZXhwIjoxNzU3NTQ2NzI2LjE0NTQ4Nywic3ViIjoiMTk2NTExMDYiLCJzY29wZXMiOlsib3JkZXJzLndyaXRlIiwicHJvZHVjdHMucmVhZCJdfQ.AJpoofu_MGhetw6yHYTSuxGIntC-WCAgSbnj-G1IvPB3ArX_B2orMcg_5qCiMGmgDg6AiNh-AoqRQwa-tcs"
+  const SHOP_ID = "17845890"
   const [data, setData] = useState<Array<Product>>(
     [{}] as Array<Product>
   );
-
-  useEffect(() => {
-    const getProducts = async () => {
-      const response = await fetch(`https://api.printify.com/v1/shops/${SHOP_ID}/products.json`, {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${API_KEY}`,
-        },
-      })
-      const products = await response.json();
-      setData(products.data[0])
-      };
-    getProducts();
-  });
   return (
     <section id="main">
       <Box sx={{ flexGrow: 1 }}>
@@ -92,9 +78,7 @@ function App() {
             Products
           </Typography>
           <Grid2 wrap="wrap"  columns={3} container>
-            {data.map((product: Product) => (
-              <ProductDisplay key={product.id} product={product} />
-            ))}
+          <ProductDisplay datasource_url={`https://api.printify.com/v1/shops/${SHOP_ID}/products.json`} token={API_KEY}/>
           </Grid2>
         </Box>
       </Box>
